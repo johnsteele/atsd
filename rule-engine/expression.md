@@ -19,15 +19,15 @@ The condition can reference fields, apply [functions](functions.md) to them, and
 | **Field** | **Description** |
 | :--- | :--- |
 | `value` | Last data sample. |
-| `tags.tag_name` | Value of command tag 'tag_name', for example, `tags.file_system`. <br>Also, `tags['tag_name']`.|
+| `tags.{tag_name}` | Value of command tag 'tag_name', for example, `tags.file_system`. <br>Also, `tags['tag_name']`.|
 | `entity` | Entity name. |
 | `entity.label` | Entity label. |
 | `entity.{field_name}` | Entity [field](../api/meta/entity/list.md#fields) with the specified name, for example `entity.timeZone`. |
-| `entity.tags.tag_name` | Entity tag value, for example, `entity.tags.location`. <br>Also, `entity.tags['tag_name']`. |
+| `entity.tags.{tag_name}` | Entity tag value, for example, `entity.tags.location`. <br>Also, `entity.tags['tag_name']`. |
 | `metric` | Metric name. |
 | `metric.label` | Metric label. |
 | `metric.{field_name}` | Metric [field](../api/meta/metric/list.md#fields) with the specified name, for example `metric.retentionDays`. |
-| `metric.tags.tag_name` | Metric tag value, for example, `metric.tags.units`. <br>Also, `metric.tags['tag_name']`. |
+| `metric.tags.{tag_name}` | Metric tag value, for example, `metric.tags.units`. <br>Also, `metric.tags['tag_name']`. |
 | `property(search)` | Property key/tag value based on property search syntax. Refer to [property functions](functions.md#property-functions). |
 
 ## Boolean Operators
