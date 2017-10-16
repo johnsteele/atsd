@@ -714,9 +714,13 @@ The modulo operator `%` returns the remainder of one number divided by another, 
 
 ### LIKE Expression
 
-The `LIKE` expression supports `%` and `_` wildcards which can be escaped with backslash `\`, if the symbol occurs in the matched value.
+The `LIKE` expression returns true if the value matches the specified string pattern which supports `%` and `_` wildcards. 
 
-The comparison is case-sensitive, even for entity and metric names.
+* Percent sign `%` matches zero or more characters in the value.
+
+* Underscore `_` matches exactly one character in the value.
+
+The comparison is case-sensitive, including **entity and metric** names.
 
 ```sql
 SELECT datetime, entity, value, tags.mount_point, tags.file_system
@@ -724,6 +728,22 @@ SELECT datetime, entity, value, tags.mount_point, tags.file_system
 WHERE tags.file_system LIKE '/dev/%'
   AND datetime >= PREVIOUS_HOUR
 ```
+
+Wildcard symbols present in the pattern can be escaped with a backslash `\` which serves as the default escape character.
+
+```sql
+-- Default escape character
+WHERE tags.file_system LIKE '%a\_b%'
+```
+
+The escape character can be customized by adding an `ESCAPE` clause after the `LIKE` expression.
+
+```sql
+-- Custom escape character
+WHERE tags.file_system LIKE '%a~_b%' ESCAPE '~'
+```
+
+In the example above, the underscore is evaluated as a regular character (not as a wildcard) because it is preceded by an `~` escape character.
 
 ### REGEX Expression
 
@@ -1939,18 +1959,18 @@ ORDER BY base.datetime
 |-------------|-------------|-------------|-------------|
 | AND         | AS          | ASC         | BETWEEN     |
 | BY          | CASE        | CAST        | DESC        |
-| ELSE        | FROM        | GROUP       | HAVING      |
-| IN          | INNER       | INTERPOLATE | ISNULL      |
-| JOIN        | LAG         | LAST_TIME   | LEAD        |
-| LIKE        | LIMIT       | LOOKUP      | NOT         |
-| OFFSET      | OPTION      | OR          | ORDER       |
-| OUTER       | PERIOD      | REGEX       | ROW_NUMBER  |
-| SELECT      | THEN        | USING       | VALUE       |
-| WHEN        | WHERE       | WITH        |             |
+| ELSE        | ESCAPE      | FROM        | GROUP       |
+| HAVING      | IN          | INNER       | INTERPOLATE |
+| ISNULL      | JOIN        | LAG         | LAST_TIME   |
+| LEAD        | LIKE        | LIMIT       | LOOKUP      |
+| NOT         | OFFSET      | OPTION      | OR          |
+| ORDER       | OUTER       | PERIOD      | REGEX       |
+| ROW_NUMBER  | SELECT      | THEN        | USING       |
+| VALUE       | WHEN        | WHERE       | WITH        |
 |-------------|-------------|-------------|-------------|
  ```
 
-In addition, [endtime](../../end-time-syntax.md#keywords) keywords such as `NOW`, `PREVIOUS_HOUR` and [interval units](../../end-time-syntax.md#interval-units) such as `MINUTE`, `HOUR` are reserved.
+ The reserved keywords also include [endtime](../../end-time-syntax.md#keywords) keywords such as `NOW`, `PREVIOUS_HOUR` and [interval units](../../end-time-syntax.md#interval-units) such as `MINUTE`, `HOUR`.
 
 ## Aggregation Functions
 
