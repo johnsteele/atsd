@@ -2,13 +2,11 @@
 
 ## Description
 
-The `direction` parameter orders samples by time for the purpose of applying `limit`.
+The `direction` parameter orders samples by time for the purpose of limiting the number of samples in each series returned to the client.
 
-Samples for each series are always sorted by time in ascending order.
+Samples for each series are always sorted by time in **ascending** order regardless of the direction.
 
-With `limit` specified, `ASC` returns first N values ordered by time. `DESC` returns last N values.
-
-`ASC` order is implemented only when the query returns 1 series.
+With `limit` specified, `ASC` returns first N values ordered by time. `DESC` returns last N values ordered by time.
 
 ## Request
 
@@ -21,16 +19,14 @@ POST https://atsd_host:8443/api/v1/series/query
 ### Payload
 
 ```json
-[
-    {
-        "startDate": "2016-02-22T13:30:00Z",
-        "endDate":   "2016-02-22T13:31:00Z",
-        "entity": "nurswgvml007",
-        "metric": "cpu_busy",
-		"limit": 1,
-		"direction": "ASC"
-    }
-]
+[{
+  "startDate": "1970-01-01T00:00:00Z",
+  "endDate":   "now",
+  "entity": "nurswgvml007",
+  "metric": "cpu_busy",
+  "limit": 2,
+  "direction": "ASC"
+}]
 ```
 
 ## Response
@@ -49,8 +45,12 @@ POST https://atsd_host:8443/api/v1/series/query
     },
     "data": [
       {
-        "d": "2016-02-22T13:30:08.000Z",
-        "v": 4
+        "d": "2013-06-17T07:29:04.000Z",
+        "v": 0
+      },
+      {
+        "d": "2013-06-17T07:29:20.000Z",
+        "v": 5.050000190734863
       }
     ]
   }
@@ -58,9 +58,9 @@ POST https://atsd_host:8443/api/v1/series/query
 ```
 
 
-## Request with DESC order
+## Request with descending order
 
-DESC order is default.
+Note that `DESC` direction is the default direction.
 
 ### URI
 
@@ -71,16 +71,14 @@ POST https://atsd_host:8443/api/v1/series/query
 ### Payload
 
 ```json
-[
-    {
-        "startDate": "2016-02-22T13:30:00Z",
-        "endDate":   "2016-02-22T13:31:00Z",
-        "entity": "nurswgvml007",
-        "metric": "cpu_busy",
-		"limit": 1,
-		"direction": "DESC"
-    }
-]
+[{
+  "startDate": "1970-01-01T00:00:00Z",
+  "endDate":   "now",
+  "entity": "nurswgvml007",
+  "metric": "cpu_busy",
+  "limit": 2,
+  "direction": "DESC"
+}]
 ```
 
 ## Response
@@ -99,8 +97,12 @@ POST https://atsd_host:8443/api/v1/series/query
     },
     "data": [
       {
-        "d": "2016-02-22T13:30:56.000Z",
-        "v": 4
+        "d": "2017-10-18T15:04:32.000Z",
+        "v": 9.09
+      },
+      {
+        "d": "2017-10-18T15:04:48.000Z",
+        "v": 2.97
       }
     ]
   }
