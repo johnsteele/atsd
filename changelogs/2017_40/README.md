@@ -29,7 +29,7 @@ Weekly Change Log: October 2, 2017 - October 8, 2017
 GET https://atsd_host:8443/api/v1/metrics?maxInsertDate=1970-01-01T00:00:00Z&limit=3
 ```
 
-Refer to [entity](../api/meta/entity/list.md#additional-examples) examples and [metric](../api/meta/metric/list.md#additional-examples) examples.
+Refer to [entity](../../api/meta/entity/list.md#additional-examples) examples and [metric](../../api/meta/metric/list.md#additional-examples) examples.
 
 ### Issue 4589
 
