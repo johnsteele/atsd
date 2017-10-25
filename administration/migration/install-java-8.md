@@ -26,10 +26,11 @@ Open the Oracle [Java 8 JDK](https://www.oracle.com/technetwork/java/javase/down
 
 Accept the license.
 
-Copy the 'Linux 64: *tar.gz' download link for 'Java SE Development Kit 8u144' into the `curl` command below.
+Copy the 'Linux 64: *tar.gz' download link for 'Java SE Development Kit 8u152' into the `curl` command below.
 
 ```sh
-curl -k -L -O -H "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.tar.gz
+curl -k -L -O -H "Cookie: oraclelicense=accept-securebackup-cookie" \
+https://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-x64.tar.gz
 ```
 
 Download the archive.
@@ -38,7 +39,10 @@ Expand the archive into the `/opt/jdk` directory.
 
 ```sh
 mkdir /opt/jdk
-tar -xzf jdk-8u144-linux-x64.tar.gz -C /opt/jdk
+```
+
+```sh
+tar -xzf jdk-8u152-linux-x64.tar.gz -C /opt/jdk
 ```
 
 Add Oracle JDK to the java alternatives.
@@ -46,15 +50,21 @@ Add Oracle JDK to the java alternatives.
 * Ubuntu, Debian
 
 ```sh
-update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_144/bin/java 100
-update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_144/bin/javac 100
+update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_152/bin/java 100
+```
+
+```sh
+update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_152/bin/javac 100
 ```
 
 * Red Hat Enterprise Linux, SLES, Centos, Oracle Linux
 
 ```sh
-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_144/bin/java 100
-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_144/bin/javac 100
+alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_152/bin/java 100
+```
+
+```sh
+alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_152/bin/javac 100
 ```
 
 ## Update Alternatives for Java Executables
@@ -65,6 +75,9 @@ Review available Java installations and select Java 8 as the default option.
 
 ```sh
 update-alternatives --config java
+```
+
+```sh
 update-alternatives --config javac
 ```
 
@@ -72,6 +85,9 @@ update-alternatives --config javac
 
 ```sh
 alternatives --config java
+```
+
+```sh
 alternatives --config javac
 ```
 
