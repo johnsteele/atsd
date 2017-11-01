@@ -18,11 +18,11 @@ Retrieve a list of metrics matching the specified filters.
 | minInsertDate |string|Include metrics with `lastInsertDate` equal or greater than `minInsertDate`.<br>The parameter can be specified in ISO-8601 format or using [endtime](../../../end-time-syntax.md) syntax.|
 | maxInsertDate |string|Include metrics with `lastInsertDate` less than `maxInsertDate`, including metrics without `lastInsertDate`.<br>The parameter can be specified in ISO format or using [endtime](../../../end-time-syntax.md) syntax.|
 | limit |integer|Maximum number of metrics to retrieve, ordered by name.|
-| tags |string|Comma-separated list of metric tag names to be displayed in the response.<br>For example, `tags=OS,location`<br>Specify `tags=*` to request all metric tags.|
+| tags |string|Comma-separated list of metric tag names to include in the response, for example, `tags=table,frequency`.<br>Specify `tags=*` to include all metric tags.<br>Specify `tags=env.*` to include all metric tags starting with `env.`.|
 
 #### Expression
 
-The expression can include all fields listed below except `lastInsertDate`. 
+The expression can include all fields listed below except `lastInsertDate`.
 
 Examples:
 

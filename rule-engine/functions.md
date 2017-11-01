@@ -1,6 +1,6 @@
 # Functions
 
-> For the purpose of this reference, arguments have the following data types: `D` - double, `L` - long, `I` - integer, `B` - boolean, `S` - string, `[S]` - array of strings. 
+> For the purpose of this reference, arguments have the following data types: `D` - double, `L` - long, `I` - integer, `B` - boolean, `S` - string, `[S]` - array of strings.
 
 > String literal arguments `S` must be enclosed in single quotes, for instance `diff('1 minute')`.
 
@@ -72,8 +72,13 @@
 * `sqrt(D)`
 * `exp(D)`
 * `log(D)`
-* `convert(D, S)` Convert value to given unit, where unit is one of 'k', 'Ki', 'M', 'Mi', 'G', 'Gi'. For example, `convert(20480, 'Ki')` evaluates to `20.0`
-* `formatNumber(D, S)` Format given number by applying specified DecimalFormat pattern, e.g. `formatNumber(3.14159, '#.##')` evaluates to `'3.14'`
+
+## Formatting Functions
+
+| **Name** | **Description** |
+| :--- | :--- |
+| `convert(D, S)` | Convert value to given unit, where unit is one of 'k', 'Ki', 'M', 'Mi', 'G', 'Gi'. <br>Example: `convert(20480, 'Ki')` returns to `20.0` |
+| `formatNumber(D, S)` | Format given number by applying specified DecimalFormat pattern.<br>Example: `formatNumber(3.14159, '#.##')` returns to `'3.14'`
 
 ## String Functions
 

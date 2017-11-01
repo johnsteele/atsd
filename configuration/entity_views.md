@@ -52,7 +52,7 @@ Value | Applicable to 'Entity Tag', 'Property Tag', and 'Series Value' [column t
 Link | Specifies if the cell value should also be clickable as a link. See [Links](#links) options.
 Link Label | Text value displayed for the link. If `icon-` is specified, the text is replaced with an [icon](http://getbootstrap.com/2.3.2/base-css.html#icons), such as `icon-search`. If Link is set to 'Entity Property', the text is resolved to the property expression value.
 Link Template | Path to a page in the user interface with support for placeholders: `${entity}` and `${value}` (current cell value).
-Formatting | An function to format cell value, for example to round numbers or to convert bytes into gigabytes.
+Formatting | A [function](../rule-engine/functions.md#formatting-functions) to round numbers or to convert units, for example `formatNumber(value, "0.0")`.
 
 ### Column Types
 
@@ -60,7 +60,7 @@ Formatting | An function to format cell value, for example to round numbers or t
 ---|---
 Entity Tag | Name of the entity tag.
 Property Tag | [Property search expression](../property-search-syntax.md) in the format of `type:{key-name=key-value}:tag-name`.
-Series Value | Name of the metric for which the last value for this entity will be displayed.
+Series Value | Name of the metric for which the last value for this entity will be displayed.<br>If multiple series match the specified metric and entity, the value for first one will be displayed.
 Name Column | Entity name with a link to the editor page for the entity.
 Label Column | Entity label with a link to the editor page for the entity.
 Properties Column | Link to the properties page for the entity.
@@ -81,7 +81,29 @@ Entity Property | Portal with a property widget for another entity retrieved wit
 **Name** | **Description**
 ---|---
 Name | Filter name displayed in the drop-down.
-Expression | A condition that entities must satisfy when the filter is selected in the drop-down. The expression may refer only to columns defined in the entity view.
+Expression | A condition that entities must satisfy when the filter is selected in the drop-down. The expression may refer to `name` and `tags.{name}` columns defined in the entity view.
+
+Filter expression examples:
+
+```java
+// name column
+name like 'nur*'
+```
+
+```java
+// entity tag column
+upper(tags.name) LIKE '*SVL*'
+```
+
+```java
+// entity tag column
+lower(tags.app) LIKE '*hbase*'
+```
+
+```java
+// property tag column
+tags['configuration::codename'] = 'Santiago'
+```
 
 ## Portal
 

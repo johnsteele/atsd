@@ -24,7 +24,7 @@ Retrieve a list of entities that are members of the specified entity group and a
 | minInsertDate |string|Include entities with last insert date at or greater than specified time. <br>`minInsertDate` can be specified in ISO format or using [endtime](../../../end-time-syntax.md) syntax.|
 | maxInsertDate |string|Include entities with last insert date less than specified time.<br>`maxInsertDate` can be specified in ISO format or using [endtime](../../../end-time-syntax.md) syntax.|
 | limit |integer|Maximum number of entities to retrieve, ordered by name.|
-| tags |string|Comma-separated list of entity tags to be included in the response.<br>For example, `tags=table,unit`<br>Specify `tags=*` to include all entity tags.|
+| tags |string|Comma-separated list of entity tag names to include in the response, for example, `tags=OS,location`.<br>Specify `tags=*` to include all entity tags.<br>Specify `tags=env.*` to include all metric tags starting with `env.`.|
 
 ## Response
 

@@ -122,6 +122,12 @@ boolean hasMetric(String metricName, int hours);
 
 boolean memberOf(String groupName);
 
+boolean memberOf(String group);
+
+boolean memberOf(List<String> groups);
+
+boolean memberOfAll(List<String> groups);
+
 Set<String> property_values(String config);
 
 Set<String> property_values(String entity, String config);
