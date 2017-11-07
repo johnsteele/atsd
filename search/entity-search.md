@@ -27,39 +27,46 @@ Entity names, tag names and tag values are matched in case-insensitive manner.
 
 ## Examples
 
-* Find entities starting with 'nur'
+* Find entities starting with `nur`
 
 ```ls
 nur
 ```
 
-* Find entities starting with 'nur' (wildcard alternative)
+* Find entities starting with `nur`
 
 ```ls
 nur*
 ```
 
-* Find entities containing 'nur'
+* Find entities containing `nur`
 
 ```ls
 *nur*
 ```
 
-* Find entities with the tag 'location' set to 'SVL'
+* Find entities with tag `location` set to `SVL`
 
 
 ```ls
 location:SVL
 ```
 
-* Find entities with any value for the tag 'location'
+* Find entities with any value for tag `location` (display `location` column).
 
 
 ```ls
 location:*
 ```
 
-* Find entities starting with 'nur' **and** the tag 'location' set to 'SVL'
+* Find entities with non-empty value for tag `location`.
+
+
+```ls
+location:*
+```
+
+* Find entities starting with `nur` **and** tag `location` set to `SVL`
 
 
 ```ls
