@@ -28,39 +28,46 @@ Metric names, tag names and tag values are matched in case-insensitive manner.
 
 ## Examples
 
-* Find metrics starting with 'cpu'
+* Find metrics starting with `cpu`
 
 ```ls
 cpu
 ```
 
-* Find metrics starting with 'cpu' (wildcard alternative)
+* Find metrics starting with `cpu`
 
 ```ls
 cpu*
 ```
 
-* Find metrics containing 'cpu'
+* Find metrics containing `cpu`
 
 ```ls
 *cpu*
 ```
 
-* Find metrics with the tag 'frequency' set to 'Daily'
+* Find metrics with tag `frequency` set to `Daily`
 
 
 ```ls
 frequency:Daily
 ```
 
-* Find metrics with any value for the tag 'frequency'
+* Find metrics with any value for tag `frequency` (display `frequency` column)
 
 
 ```ls
 frequency:*
 ```
 
-* Find metrics starting with 'cpu' **and** the tag 'frequency' set to 'Daily'
+* Find metrics with non-empty value for tag `frequency`
+
+
+```ls
+frequency:
+```
+
+* Find metrics starting with `cpu` **and** tag `frequency` set to `Daily`
 
 
 ```ls
