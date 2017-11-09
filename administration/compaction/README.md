@@ -62,11 +62,11 @@ volume = 10031
 
 The tests are performed using two schema options:
 
-### Trade Table.
+### Specific Table.
 
-The **Trade Table** schema uses a named column for each metric.
+The **Specific Table** schema uses a named column for each metric.
 
-This option requires less disk space however the underlying table can not be extended to store different sets of columns for different instrument types. As a result, multiple tables need to be created to store data for various instrument types.
+Under this option, the table is configured to store a fixed set of metrics for the given entity type. A separate table is required for each type of entities.
 
 Example: IBM Tivoli Data Warehouse
 
@@ -74,9 +74,9 @@ Example: IBM Tivoli Data Warehouse
 
 ### Universal Table
 
-The **Universal Table** schema uses a `metricId` column to refer to the metric defined in a separate dictionary table.
+The **Universal Table** schema uses a `Metric Id` column to reference the metric defined in a separate dictionary (lookup) table.
 
-This option allows adding new metrics without altering the tables. This can be done by creating a dictionary table for metrics and referencing the metric id in each data table row.
+This option allows adding new metrics without altering the data table itself.
 
 Example: Microsoft System Center Operations Manager Data Warehouse
 
