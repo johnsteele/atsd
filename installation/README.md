@@ -13,6 +13,7 @@
 | :--- | --- | :---: |
 | Docker | official image | [View](docker.md)|
 | RedHat Docker | certified image | [View](docker-redhat.md)|
+| Kubernetes | official image | [View](https://github.com/axibase/axibase-collector/blob/master/installation-on-kubernetes.md).|
 
 ### Packages
 
