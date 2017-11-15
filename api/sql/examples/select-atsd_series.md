@@ -232,10 +232,31 @@ WITH INTERPOLATE(180 second, AUTO, OUTER, EXTEND, START_TIME)
 | br-1470   | sv6.pack:r04 | 2016-10-04T02:09:00Z | 21.9     | 455.0        | 1414          | 1414-Proc3     |
 ```
 
-## Limitations
 
-* The metric condition supports only `=`, `IN` and `LIKE` operators, as well as the `metrics(entity)` function.
-* The number of metrics retrieved with `metric LIKE '%expr%'` condition must not exceed 50.
+## Selecting Multiple Metric and Entities
+
+Locate lagging series: series with data timestamped with the last 14 days, but which have stopped collecting data during the last 24 hours. 
+
+```sql
+SELECT metric, entity, tags, date_format(MAX(time)) as "max_time"
+  FROM atsd_series
+WHERE datetime >= NOW - 14*DAY -- condition to select series with last insert date within the last 14 days
+  AND ( metric = 'disk_used' AND entity IN ('nurswgvml006', 'nurswgvml007', 'nurswgvml010', 'nurswgvml502')
+     OR metric = 'cpu_user'  AND entity IN ('nurswgvml010', 'nurswgvml502')
+     OR metric = 'cpu_busy'  AND entity = 'nurswgvml006'
+      )
+GROUP BY metric, entity, tags
+  HAVING MAX(time) < NOW - 24 * HOUR -- condition to exclude series that have recent data
+```
+
+### Results
+
+```ls
+| metric     | entity        | tags                               | max_time            | 
+|------------|---------------|------------------------------------|---------------------| 
+| disk_used  | nurswgvml010  | file_system=udev;mount_point=/dev  | 2017-09-29 10:16:37 | 
+```
+
 
 ## Numeric Precedence
 
@@ -244,3 +265,8 @@ If the `value` column in `atsd_series` query returns numbers for metrics with di
 1. If all data types are integer (`short`, `integer`, `long`), return the prevailing **integer** type.
 2. If all data types are decimal (`float`, `double`, `decimal`), return the prevailing **decimal** type.
 3. If data types are both integer and decimal, return **decimal** type.
+
+## Limitations
+
+* The metric condition supports only `=`, `IN` and `LIKE` operators, as well as the `metrics(entity)` function.
+* The number of metrics retrieved with `metric LIKE '%expr%'` condition must not exceed 50.

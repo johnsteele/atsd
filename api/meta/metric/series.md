@@ -1,14 +1,14 @@
 # Metric: Series
 
-## Description 
+## Description
 
-Returns a list of **series** for the metric. 
+Returns a list of **series** for the metric.
 
 Each series is identified by metric name, entity name, and optional series tags.
 
 ## Request
 
-| **Method** | **Path** | 
+| **Method** | **Path** |
 |:---|:---|
 | GET | `/api/v1/metrics/{metric}/series` |
 
@@ -35,7 +35,7 @@ Each series is identified by metric name, entity name, and optional series tags.
 |:---|:---|
 | metric | Metric name.  |
 | entity | Entity name.  |
-| tags | An object containing **series** tags as names and values.<br>For example, `"tags": {"file_system": "/dev/sda"}` |
+| tags | An object containing **series** tag names and values.<br>For example, `"tags": {"file_system": "/dev/sda"}` |
 | lastInsertDate |Last time a value was received for this series. ISO date.|
 
 ### Errors
@@ -93,7 +93,3 @@ curl https://atsd_host:8443/api/v1/metrics/disk_used/series \
 ```elm
 /api/v1/metrics/disk_used/series?entity=nurswgvml007&tags.file_system=/
 ```
-
-
-
-
