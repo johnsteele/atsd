@@ -156,7 +156,7 @@ avg() > 60 && max(atsd_values('avg', '3 hour', '15 minute')) < 30
 ```
 
 ```java
-value > 20 && avg(atsd_values('sensor-1', 'pressure', 'surface=jacket', 'max', '1 HOUR')) > 0
+value > 20 && avg(atsd_values('pressure', 'sensor-1', 'surface=jacket', 'max', '1 HOUR')) > 0
 ```
 
 ## Formatting Functions
