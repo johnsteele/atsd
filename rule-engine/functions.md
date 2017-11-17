@@ -152,11 +152,18 @@ atsd_values(S metric, S entity, S tags, S statistic, S interval [,S period [,S e
 Examples:
 
 ```java
-avg() > 60 && max(atsd_values('avg', '3 hour', '15 minute')) < 30
+// retrieve data for the same series as in the current rule
+avg() > 60 && atsd_values('avg', '3 hour', '15 minute')[0] < 30
 ```
 
 ```java
-value > 20 && avg(atsd_values('pressure', 'sensor-1', 'surface=jacket', 'max', '1 HOUR')) > 0
+// refer to another entity
+value > 20 && atsd_values('pressure', 'sensor-1', 'surface=jacket', 'max', '1 HOUR')[0] < 25
+```
+
+```java
+// refer to the entity in the current rule using a placeholder
+value > 20 && atsd_values('pressure', entity, 'surface=jacket', 'max', '1 HOUR')[0] < 25
 ```
 
 ## Formatting Functions
