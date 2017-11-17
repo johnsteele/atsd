@@ -6,6 +6,35 @@
 
 > Function names are **case-sensitive**.
 
+## Math Functions
+
+* `abs(D)`
+* `ceil(D)`
+* `floor(D)`
+* `pow(D, D)`
+* `round(D)`
+* `round(D, I)`
+* `random()`
+* `max(D, D)`
+* `min(D, D)`
+* `sqrt(D)`
+* `exp(D)`
+* `log(D)`
+
+
+## String Functions
+
+| **Name** | **Description** |
+| :--- | :--- |
+| `upper(S)` | Convert string to upper case. |
+| `lower(S)` | Convert string to lower case. |
+| `t.contains(S)` | Check if field 't' contains the specified string. |
+| `t.startsWidth(S)` | Check if field 't' starts with the specified string. |
+| `t.endsWidth(S)` | Check if field 't' ends with the specified string. |
+| `coalesce([S])` | Return first non-empty string from the array of strings. See [examples](functions-coalesce.md).|
+| `urlencode(S)` | Encode string into the URL format where unsafe characters are replaced with "%" followed by 2 digits. |
+| `jsonencode(S)` | Escape special symbols with backslash to safely use the provided string within JSON object. |
+
 ## Statistical Functions
 
 | **Name** | **Description** |
@@ -53,25 +82,71 @@
 
 ## Data Query Functions
 
-| **Type** | **Example** | **Description** |
-| --- | --- | --- |
-| atsd_last | `atsd_last(metric: 'transq')` | Query historical database for last value. |
-| atsd_values | `avg(atsd_values(entity: 'e1', metric: 'm1', type: 'avg', interval: '5-minute', shift: '1-day', duration: '3-hour'))` | Query historical database for a range of values. Apply analytical functions to the result set. |
+| **Type** | **Description** |
+| --- | --- |
+| atsd_last | Retrieve last value for the specified entity, metric and optional series tags from the database. |
+| atsd_values | Retrieve value list from the database for the specified metric, entity and other parameters. Apply a statistical function such as `avg()` to the list. |
 
-## Math Functions
+### `atsd_last` Function
 
-* `abs(D)`
-* `ceil(D)`
-* `floor(D)`
-* `pow(D, D)`
-* `round(D)`
-* `round(D, I)`
-* `random()`
-* `max(D, D)`
-* `min(D, D)`
-* `sqrt(D)`
-* `exp(D)`
-* `log(D)`
+The function retrieves the last value stored in the database.
+
+```java
+/*
+  Retrieve the last value for the same metric, entity, and series tags as defined in the current window.
+*/
+atsd_last()
+```
+
+```java
+/*
+  Retrieve the last value for the specified metric and the same entity as defined in the current window.
+*/
+atsd_last(S metric)
+``` 
+
+```java
+/*
+  Retrieve the last value for the specified metric and entity.
+*/
+atsd_last(S entity, S metric)
+``` 
+
+```
+/*
+  Retrieve the last value for the specified metric, entity, and series tags. 
+  The tags must be specified as `key1=value1,key2=value`.
+*/
+atsd_last(S entity, S metric, S tags)
+``` 
+
+Example:
+
+```java
+value > 60 && atsd_last('temperature') < 30
+```
+
+### `atsd_values` Function
+
+Retrieve an array of numbers from the database which can be analyzed with a [statistical function](#statistical-functions) such as `avg()`.
+
+```java
+atsd_values(S entity, S metric, S tags, S stat_function, S period, S shift, S interval)
+```
+
+The `tags` and `shift` arguments are optional and can be specified as empty string.
+
+* `tags` can be specified as `key1=value1,key2=value`.
+* `stat_function` is one of [statistical functions](`../api/data/aggregation.md`) applied to values grouped within each period.
+* `period` is the [aggregation period](../api/data/series/aggregate.md#period) specified as `count unit`, for example, '5 minute'.
+* `shift` is the interval subtracted from current time, specified as `count unit`, for example, '1 HOUR'.
+* `interval` is the duration of selection interval specified as `count unit`, for example, '1 HOUR'.
+
+Example
+
+```java
+avg() > 60 && avg(atsd_values('sensor-1', 'temperature', '', 'max', '15 minute', '', '3 HOUR')) < 30
+```
 
 ## Formatting Functions
 
@@ -79,19 +154,6 @@
 | :--- | :--- |
 | `convert(D, S)` | Convert value to given unit, where unit is one of 'k', 'Ki', 'M', 'Mi', 'G', 'Gi'. <br>Example: `convert(20480, 'Ki')` returns to `20.0` |
 | `formatNumber(D, S)` | Format given number by applying specified DecimalFormat pattern.<br>Example: `formatNumber(3.14159, '#.##')` returns to `'3.14'`
-
-## String Functions
-
-| **Name** | **Description** |
-| :--- | :--- |
-| `upper(S)` | Convert string to upper case. |
-| `lower(S)` | Convert string to lower case. |
-| `t.contains(S)` | Check if field 't' contains the specified string. |
-| `t.startsWidth(S)` | Check if field 't' starts with the specified string. |
-| `t.endsWidth(S)` | Check if field 't' ends with the specified string. |
-| `coalesce([S])` | Return first non-empty string from the array of strings. See [examples](functions-coalesce.md).|
-| `urlencode(S)` | Encode string into the URL format where unsafe characters are replaced with "%" followed by 2 digits. |
-| `jsonencode(S)` | Escape special symbols with backslash to safely use the provided string within JSON object. |
 
 ## Collection Functions
 
