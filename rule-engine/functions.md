@@ -82,14 +82,9 @@
 
 ## Data Query Functions
 
-| **Type** | **Description** |
-| --- | --- |
-| atsd_last | Retrieve last value for the specified entity, metric and optional series tags from the database. |
-| atsd_values | Retrieve value list from the database for the specified metric, entity and other parameters. Apply a statistical function such as `avg()` to the list. |
-
 ### `atsd_last` Function
 
-The function retrieves the last value stored in the database.
+The function retrieves the last value stored in the database for the specified series.
 
 ```java
 /*
@@ -113,9 +108,9 @@ atsd_last(S entity, S metric)
 ``` 
 
 ```
-/*
+/**
   Retrieve the last value for the specified metric, entity, and series tags. 
-  The tags must be specified as `key1=value1,key2=value`.
+  The tags must be specified as `key1=value1,key2=value` or as an empty string.
 */
 atsd_last(S entity, S metric, S tags)
 ``` 
@@ -128,24 +123,30 @@ value > 60 && atsd_last('temperature') < 30
 
 ### `atsd_values` Function
 
-Retrieve an array of numbers from the database which can be analyzed with a [statistical function](#statistical-functions) such as `avg()`.
+Retrieve an array of numbers from the database for the specified series. The array can be then evaluated in the expression with a [statistical function](#statistical-functions) such as `avg()`.
 
 ```java
-atsd_values(S entity, S metric, S tags, S stat_function, S period, S shift, S interval)
+atsd_values(S entity, S metric, S tags, S statistic, S period, S endTime, S interval)
 ```
 
-The `tags` and `shift` arguments are optional and can be specified as empty string.
+> The `tags` and `endTime` arguments are optional and can be specified as empty string.
 
-* `tags` can be specified as `key1=value1,key2=value`.
-* `stat_function` is one of [statistical functions](`../api/data/aggregation.md`) applied to values grouped within each period.
-* `period` is the [aggregation period](../api/data/series/aggregate.md#period) specified as `count unit`, for example, '5 minute'.
-* `shift` is the interval subtracted from current time, specified as `count unit`, for example, '1 HOUR'.
+* `tags` is a set of series tags specified as `key1=value1,key2=value`.
+* `statistic` is one of [statistical functions](`../api/data/aggregation.md`) applied to values grouped within each period.
+* `period` is the [aggregation period](../api/data/series/period.md) specified as `count unit`, for example, '5 minute'.
+* `endTime` is the end time of the selection interval, specified as ISO date or using the [endtime](../end-time-syntax.md) syntax.
 * `interval` is the duration of selection interval specified as `count unit`, for example, '1 HOUR'.
 
-Example
+> The periods returned by the `atsd_values` function are aligned based on the [`END_TIME`](../api/data/series/period.md#alignment) parameter.
+
+Examples:
 
 ```java
 avg() > 60 && avg(atsd_values('sensor-1', 'temperature', '', 'max', '15 minute', '', '3 HOUR')) < 30
+```
+
+```java
+value > 20 && avg(atsd_values('sensor-1', 'pressure', '', 'max', '1 HOUR', '', '1 HOUR')) > 0
 ```
 
 ## Formatting Functions
