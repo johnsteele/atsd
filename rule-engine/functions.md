@@ -112,7 +112,7 @@ atsd_last(S metric, S entity)
   Retrieve the last value for the specified metric, entity, and series tags. 
   The tags can be specified as empty string (no tags) or as `key1=value1,key2=value`.
 */
-atsd_last(S entity, S metric, S tags)
+atsd_last(S metric, S entity, S tags)
 ``` 
 
 Example:
@@ -137,7 +137,7 @@ atsd_values(S statistic, S interval [,S period [,S endTime] ])
   Retrieve an array of numbers from the database for the specified metric, entity, and series tags. 
   The tags can be specified as empty string (no tags) or as m`key1=value1,key2=value`.
 */
-atsd_values(S entity, S metric, S tags, S statistic, S interval [,S period [,S endTime] ])
+atsd_values(S metric, S entity, S tags, S statistic, S interval [,S period [,S endTime] ])
 ```
 
 * `tags` is a set of series tags specified as `key1=value1,key2=value` or as an empty string `''`.
