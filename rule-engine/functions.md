@@ -60,6 +60,7 @@
 | `diff()` | Difference between `last` and `first` values. Same as `last() - first()`. |
 | `diff(I)` | Difference between `last(I)` and `first(I)` values. Same as` last(I)-first(I)`. |
 | `diff(S)` | Difference between the last value and value at 'currentTime - interval'. <br>Interval specified as 'count unit', for example '5 minute'. |
+| `delta()` | Same as `diff()`. |
 | `new_maximum()` | Returns true if last value is greater than any previous value. |
 | `new_minimum()` | Returns true if last value is smaller than any previous value. |
 | `threshold_time(D)` | Number of minutes until the sample value reaches specified threshold `D` based on extrapolation of the difference between the last and first value. |

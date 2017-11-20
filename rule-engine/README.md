@@ -5,7 +5,7 @@
 The Rule Engine enables automation of repetitive tasks based on the analysis of incoming data. Such tasks may include invoking a script to resolve a problem,  
 [sending an
 email](email-action.md),
-or raising a ticket in the centralized incident management system.
+or raising a ticket in a service desk.
 
 The rule engine evaluates a set of `IF-THEN` expressions on incoming data:
 
@@ -19,6 +19,8 @@ If the condition specified in the rule evaluates to `true`, one or multiple auto
     IF avg() > 75 THEN create_ticket
 ```
 
+The condition can operate on values for one metric as well as correlation multiple metrics using the [`db_last`](functions-db.md#db_last-function) and [`db_statistic`](functions-db.md#db_statistic-function) functions.
+
 ## References
 
 * [Expressions](expression.md)
@@ -29,8 +31,7 @@ If the condition specified in the rule evaluates to `true`, one or multiple auto
 
 ## In-Memory Processing
 
-The incoming data is processed by the Rule Engine in-memory,
-separately from the other downstream tasks such as persistence and messaging.
+The incoming data is processed by the rule engine in-memory, before the data is stored on disk.
 
 ![](images/atsd_rule_engine.png "atsd_rule_engine")
 
@@ -51,7 +52,7 @@ The incoming data samples are processed by a chain of filters prior to reaching 
 Once the sample passes through the chain of filters, it is added to matching
 windows grouped by metric, entity, and optional tags. Each window maintains its own array of data samples.
 
-> If the 'Disable Entity Grouping' option is checked, the window is grouped by metric and optional tags.
+> If the 'Disable Entity Grouping' option is checked, the window is grouped only by metric and optional tags.
 
 ### Evaluation
 
@@ -64,7 +65,7 @@ When a window is updated, the rule engine evaluates the expression that returns 
     percentile(95) > 80 && stdev() < 10
 ```
 
-The window will change its status once the expression returns a boolean value different from the previous iteration.
+The window changes its status once the expression returns a boolean value different from the previous iteration.
 
 ## Window Status
 
