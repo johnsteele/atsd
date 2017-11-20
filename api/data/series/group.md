@@ -1,16 +1,16 @@
 # Group Processor
 
-Groups multiple input series into one series and applies a grouping function to grouped values. 
+Groups multiple input series into one series and applies a statistical function to grouped values. 
 
 If the `period` is not specified, values are grouped at all unique timestamps in the input series, otherwise values are grouped by period.
 
 | **Parameter** | **Type** | **Description**  |
 |:---|:---|:---|
 | type          | string          | **[Required]** Grouping [function](#grouping-functions) applied to values of the input series. |
-| period      | object           | [Period](period.md). Splits the merged series into periods and applies the grouping function to values in each period separately. <br>Default: undefined. If period is undefined, and the query includes both `group` and `aggregate` objects, period is inherited from `aggregate` object.|
+| period      | object           | [Period](period.md). Splits the merged series into periods and applies the statistical function to values in each period separately.<br>Default value: `undefined`. If period is undefined, and the query includes both `group` and `aggregate` objects, the group's period is inherited from `aggregate` object.|
 | interpolate   | object           | [Interpolation](#interpolation) function to fill gaps in input series (no period) or in grouped series (if period is specified). Default value: `NONE` |
 | truncate      | boolean           | Discards samples at the beginning of the interval until values for all input series are established. Default: false.  |
-| order         | number           | Controls the processing order. If `group` order exceeds `aggregation` order, `group` is executed first. Default: 0.  |
+| order         | integer           | Controls the processing order between the `group` and the `aggregate` stage.<br>The stage with the smallest order is executed first.<br>If the stages have the same order, the `group` stage is executed before `aggregate`.<br> Default value: 0.  |
 
 ## Grouping Functions
 
@@ -120,7 +120,7 @@ On the other hand, the `SUM` returns 3 (3 + null->0) at 2016-06-25T08:00:05Z bec
 [{"entity":"*","metric":"m-1","tags":{},"entities":["e-1","e-2"],"type":"HISTORY",
 	"aggregate":{"type":"DETAIL"},
 	"group":{"type":"SUM","order":0},
-"data":[
+  "data":[
 	{"d":"2016-06-25T08:00:00.000Z","v":12.0},
 	{"d":"2016-06-25T08:00:05.000Z","v":3.0},
 	{"d":"2016-06-25T08:00:10.000Z","v":5.0},
@@ -179,7 +179,7 @@ Sample for series e-2 at 2016-06-25T08:00:59.000Z is discarded because there is 
     "metric": "m-1",
     "group": {
       "type": "SUM",
-	  "truncate": true
+	    "truncate": true
     }
   }
 ]
@@ -228,7 +228,7 @@ An opposite operation to truncation, extend adds missing values at the beginning
     "metric": "m-1",
     "group": {
       "type": "SUM",
-	  "interpolate": { "extend": true }
+	    "interpolate": { "extend": true }
     }
   }
 ]
@@ -276,7 +276,7 @@ Interpolation can fill the gaps in merged series. The `interpolate` function is 
     "metric": "m-1",
     "group": {
       "type": "SUM",
-	  "interpolate": { "type": "PREVIOUS" }
+	    "interpolate": { "type": "PREVIOUS" }
     }
   }
 ]
@@ -323,7 +323,7 @@ To split values into periods, specify period.
     "metric": "m-1",
     "group": {
       "type": "SUM",
-	  "period": {"count": 10, "unit": "SECOND"}
+	    "period": {"count": 10, "unit": "SECOND"}
     }
   }
 ]
@@ -391,11 +391,11 @@ The timestamps used for grouping combine period start times from the underlying 
     "aggregate": {
       "type": "COUNT",
       "period": {"count": 10, "unit": "SECOND"},
-	  "order": 0
+	    "order": 0
     },    
     "group": {
       "type": "SUM",
-	  "order": 1
+	    "order": 1
     }
   }
 ]
@@ -460,12 +460,12 @@ The grouped `SUM` series is then aggregated into periods.
     "aggregate": {
       "type": "COUNT",
       "period": {"count": 10, "unit": "SECOND"},
-	  "order": 1
+	    "order": 1
     },    
     "group": {
       "type": "SUM",
       "period": {"count": 1, "unit": "MILLISECOND"},
-	  "order": 0
+	    "order": 0
     }
   }
 ]

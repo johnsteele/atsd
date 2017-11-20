@@ -2,7 +2,7 @@
 
 ## Description
 
-Retrieve series objects containing time:value arrays for specified filters.
+Retrieve time series objects for the specified metric, entity, tag, and interval filters.
 
 ## Request
 
@@ -10,62 +10,73 @@ Retrieve series objects containing time:value arrays for specified filters.
 |:---|:---|---:|
 | POST | `/api/v1/series/query` | `application/json` |
 
-### Parameters
+The request payload is a JSON document containing an array of query objects.
 
-None.
+```
+[{
+  /* query 1: filter, process, control */
+},{
+  /* query 2: filter, process, control */
+}]
+```
 
-### Fields
+Each query contains **filter** fields to find time series in the database, **processing** fields to transform the matched series, and **control** fields to order and format the results.
 
-An array of query objects containing the following filtering fields:
+## Query Fields
 
-#### Series Filter Fields
+### Base Filter
 
 | **Field** | **Type** | **Description** |
 |---|---|---|
-| type | string | Type of underlying data: `HISTORY`, `FORECAST`, `FORECAST_DEVIATION`. Default: `HISTORY` |
-| metric | string | [**Required**] Metric name |
-| tags | object  | Object with `name=value` fields. <br>Matches series with tags that contain the same fields but may also include other fields. <br>Tag field values support `?` and `*` wildcards. |
-| tagExpression | string | An expression to include series that match the specified tag condition. |
-| exactMatch | boolean | `tags` match operator. _Exact_ match if true, _partial_ match if false. Default: **false**.<br>_Exact_ match selects series with exactly the same `tags` as requested.<br>_Partial_ match selects series with tags that contain requested tags but may also include other tags.|
+| metric | string | [**Required**] Metric name. |
+| type | string | Data type: `HISTORY`, `FORECAST`, `FORECAST_DEVIATION`. <br>Default: `HISTORY` |
 
-##### Tag Expression Filter
-
-* The `tagExpression` field can refer to series tags by name using `tags.{name}` syntax.
-* The series record must satisfy both the `tags` object and the `tagExpression` in order to be included in the results.
-* Supported operands: `LIKE`, `NOT LIKE`, `=`, `!=`, `>=`, `>`, `<=`, `<`.
-* Supported functions: `LOWER`.
-* Supported wildcards: `?` and `*`.
-
-```javascript
-tags.location LIKE 'nur*'
-```
-
-#### Entity Filter Fields
+### Entity Filter
 
 * [**Required**]
 * Refer to [entity filter](../filter-entity.md).
 
 > Queries of `FORECAST` and `FORECAST_DEVIATION` type do **not** support wildcards in the entity name and tag values. Tag value `'*'` matches all tags.
 
-#### Date Filter Fields
+### Tag Filter
+
+| **Field** | **Type** | **Description** |
+|---|---|---|
+| tags | object  | Object with `name=value` fields. <br>Matches series that contain the specified series tags. <br>Tag values support `?` and `*` wildcards. |
+| exactMatch | boolean | `tags` match operator. _Exact_ match if `true`, _partial_ match if `false`. Default: **false** (_partial_ match).<br>_Exact_ match selects series with exactly the same `tags` as requested.<br>_Partial_ match selects series with tags that contain requested tags but may also include additional tags.|
+| tagExpression | string | An expression to include series with tags that satisfy the specified condition. |
+
+Tag Expression
+
+* The `tagExpression` can refer to series tags by name using `tags.{name}` syntax.
+* Supported operands: `LIKE`, `NOT LIKE`, `=`, `!=`, `>=`, `>`, `<=`, `<`.
+* Supported functions: `LOWER`.
+* Supported wildcards: `?` and `*`.
+* The series record must satisfy both the `tags` object and the `tagExpression` in order to be included in the results.
+
+```javascript
+tags.location LIKE 'nur*'
+```
+
+### Date Filter
 
 * [**Required**]
 * Refer to [date filter](../filter-date.md).
 
-#### Forecast Filters
+### Forecast Filter
 
 | **Name**  | **Type** | **Description**  |
 |:---|:---|:---|
 |forecastName| string | Unique forecast name. Identifies a custom forecast by name. If `forecastName` is not set, then the default forecast computed by the database will be returned. `forecastName` is applicable only when `type` is set to `FORECAST` or `FORECAST_DEVIATION`. |
 
-#### Versioning Filters
+### Versioning Filter
 
 | **Name**  | **Type** | **Description**  |
 |:---|:---|:---|
 | versioned | boolean |Returns version status, source, and change date if the metric is versioned. Default: false. |
 | versionFilter | string | Expression to filter value history (versions) by version status, source or time, for example: `version_status = 'Deleted'` or `version_source LIKE '*user*'`. To filter by version `time`, use `date()` function, for example, `version_time > date('2015-08-11T16:00:00Z')` or `version_time > date('current_day')`. The `date()` function accepts [endtime](../../../end-time-syntax.md) syntax.|
 
-#### Control Filter Fields
+### Control Fields
 
 | **Name**  | **Type** | **Description**  |
 |:---|:---|:---|
@@ -77,7 +88,7 @@ tags.location LIKE 'nur*'
 | timeFormat |string| Time format for a data array. `iso` or `milliseconds`. Default: `iso`. |
 | addMeta | boolean | Include metric and entity metadata (field, tags) under the `meta` object in response. Default: false.|
 
-#### Transformation Fields
+### Transformation Fields
 
 | **Name**  | **Type** | **Description**  |
 |:---|:---|:---|
@@ -85,13 +96,13 @@ tags.location LIKE 'nur*'
 | [group](group.md) | object | Merge multiple series into one series. |
 | [rate](rate.md) | object | Compute difference between consecutive samples per unit of time (rate period). |
 
-## Transformation Sequence
+Transformation Sequence
 
-The default processor sequence is as follows:
+The default processing sequence is as follows:
 
-1. group
-2. rate
-3. aggregate
+1. [group](group.md)
+2. [rate](rate.md)
+3. [aggregate](aggregate.md)
 
 The sequence can be modified by specifying an `order` field in each processor, in which case processor steps are executed in ascending order as specified in the `order` field.
 
