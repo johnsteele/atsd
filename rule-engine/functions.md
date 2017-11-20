@@ -80,91 +80,16 @@
 | `forecast(S)` | Named forecast value for the entity, metric, and tags in the current window, for example `forecast('ltm')` |
 | `forecast_deviation(D)` | Difference between a number (such as last value) and forecast, divided by forecast standard deviation.<br>Formula: `(number - forecast())/forecast_stdev()`.|
 
-## Data Query Functions
+## Database Functions
 
-### `atsd_last` Function
+| **Name** | **Description** |
+| :--- | :--- |
+| `db_last()` | Retrieves the last value stored in the database for the specified series. |
+| `db_statistic()` | Retrieves an aggregated value from the database for the specified series. |
 
-The function retrieves the last value stored in the database for the specified series.
+The database functions provide a way to retrieve values for a series which may be different from the series in the current window. The functions can be used to compare data between different series for correlation purposes.
 
-```java
-/*
-  Retrieve the last value for the same metric, entity, and series tags as defined in the current window.
-*/
-atsd_last()
-```
-
-```java
-/*
-  Retrieve the last value for the specified metric and the same entity as defined in the current window.
-*/
-atsd_last(S metric)
-``` 
-
-```java
-/*
-  Retrieve the last value for the specified metric and entity.
-*/
-atsd_last(S metric, S entity)
-``` 
-
-```
-/**
-  Retrieve the last value for the specified metric, entity, and series tags. 
-  The tags can be specified as empty string (no tags) or as `key1=value1,key2=value`.
-*/
-atsd_last(S metric, S entity, S tags)
-``` 
-
-Example:
-
-```java
-value > 60 && atsd_last('temperature') < 30
-```
-
-### `atsd_values` Function
-
-Retrieve an array of numbers from the database for the specified series. The array can be then evaluated in the expression with a [statistical function](#statistical-functions) such as `avg()`.
-
-```java
-/*
-  Retrieve an array of numbers from the database for the same metric, entity, and tags as in the current window. 
-*/
-atsd_values(S statistic, S interval [,S period [,S endTime] ])
-```
-
-```java
-/*
-  Retrieve an array of numbers from the database for the specified metric, entity, and series tags. 
-  The tags can be specified as empty string (no tags) or as m`key1=value1,key2=value`.
-*/
-atsd_values(S metric, S entity, S tags, S statistic, S interval [,S period [,S endTime] ])
-```
-
-* `tags` is a set of series tags specified as `key1=value1,key2=value` or as an empty string `''`.
-* `statistic` is one of [statistical functions](`../api/data/aggregation.md`) applied to values grouped within each period.
-* `interval` is the duration of selection interval specified as `count unit`, for example, '1 HOUR'.
-* `period` is the [aggregation period](../api/data/series/period.md) specified as `count unit`, for example, '5 minute'. If the `period` is omitted, it is equal to interval.
-* `endTime` is the end time of the selection interval, specified as an ISO date or an [endtime](../end-time-syntax.md) expression. If `endTime` is omitted or set to empty string `''`, the end of the selection interval is set to current time.
-
-
-> The periods returned by the `atsd_values` function are aligned based on the [`END_TIME`](../api/data/series/period.md#alignment) parameter.
-
-Examples:
-
-```java
-// retrieve data for the same series as in the current rule
-avg() > 60 && atsd_values('avg', '3 hour', '15 minute')[0] < 30
-```
-
-```java
-// refer to another entity
-value > 20 && atsd_values('pressure', 'sensor-1', 'surface=jacket', 'max', '1 HOUR')[0] < 25
-```
-
-```java
-// refer to the entity in the current rule using a placeholder
-value > 20 && atsd_values('pressure', entity, 'surface=jacket', 'max', '1 HOUR')[0] < 25
-```
+Refer to the database function [syntax and examples](functions-time.md).
 
 ## Formatting Functions
 

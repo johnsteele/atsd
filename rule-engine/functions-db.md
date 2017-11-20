@@ -135,6 +135,14 @@ In the example below, the `db_last('cpu_busy')` function ignores mount_point and
   tags   = [empty - no tags]
 ```
 
+* Matched Series
+
+```
+  metric = cpu_busy
+  entity = nurswgvml007
+  tags   = no tags
+```
+
 ### Example `Same Tags`
 
 In the example below, the `db_last('disk_used_percent')` function uses the same series tags as in the current window because all of these tags are collected by the disk_used_percent metric.
@@ -157,6 +165,14 @@ In the example below, the `db_last('disk_used_percent')` function uses the same 
 
 ```
   metric = disk_used_percent
+  entity = nurswgvml007
+  tags   = mount_point = /, file_system = /sda
+```
+
+* Matched Series
+
+```
+  metric = cpu_busy
   entity = nurswgvml007
   tags   = mount_point = /, file_system = /sda
 ```
@@ -187,6 +203,14 @@ In the example below, the `db_last('disk_used_percent')` function will search fo
   tags   = [empty - no tags]
 ```
 
+* Matched Series
+
+```
+  metric = disk_used_percent
+  entity = nurswgvml007
+  tags   = mount_point = /, file_system = /sda
+```
+
 ### Example `Different Tags`
 
 In the example below, the `db_last('io_disk_percent_util')` function will search for first series with **any** tags (including no tags) because the io_disk_percent_util and disk_used metrics have different non-intersecting tag sets. This search will likely match multiple series, the first of which will be used to return the value. To better control which series is matched, use `db_last('io_disk_percent_util', entity, 'device=sda')` syntax option.
@@ -194,21 +218,29 @@ In the example below, the `db_last('io_disk_percent_util')` function will search
 * Current Window
 
 ```
-  metric = cpu_busy
+  metric = disk_used_percent
   entity = nurswgvml007
-  tags   = [empty - no tags]
+  tags   = mount_point = /, file_system = /sda
 ```
 
 * Expression
 
 ```java
-  db_last('disk_used_percent') > 90
+  db_last('io_disk_percent_util') > 90
 ```
 
 * Search Filter
 
 ```
-  metric = disk_used_percent
+  metric = io_disk_percent_util
   entity = nurswgvml007
-  tags   = [empty - no tags]
+  tags   = [empty - no tags - because there are no intersecting tag names]
+```
+
+* Matched Series
+
+```
+  metric = io_disk_percent_util
+  entity = nurswgvml007
+  tags   = device = sda
 ```
