@@ -34,13 +34,6 @@ Install [WebDriver](README.md#install-web-driver)
    ![](images/atsd_bot.png)
 
 * Add other members to receive notifications from ATSD, click **Create**
-* Get the chat id:
-  * log in to [Telegram Web client](https://web.telegram.org)
-  * open the group and find the id in the URL: /#/im?p=g**306974066**
-  
-   ![](images/id_group.png)
-   
- * copy numbers and add prefix `-`, so the chat id will be like `-306974066`
 
 ### Create Channel
 
@@ -72,8 +65,20 @@ Install [WebDriver](README.md#install-web-driver)
 
    ![](images/admin_settings.png)
 
-* Get the chat id:
+## Get the chat id
+
   * log in [Telegram Web](https://web.telegram.org)
+  
+### Group  
+
+  * click on group and look at URL: /#/im?p=g**306974066**
+  
+   ![](images/id_group.png)
+   
+  * copy numbers and add prefix `-`, so the chat id will be like `-306974066`
+
+### Channel
+
   * click on channel and look at URL: /#/im?p=c**1354757644**_16698643680908793939
   
    ![](images/channel_url.png)

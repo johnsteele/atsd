@@ -33,6 +33,9 @@ Install a [Web Driver binary](README.md#install-web-driver)
 
 * Review setup instructions
 * Copy API Token, click **Save Integration**
+
+![](images/api_token.png) 
+
 * Invite bot to the channel: 
     * go back to https://my.slack.com/
     * click **Invite others to this private channel**
