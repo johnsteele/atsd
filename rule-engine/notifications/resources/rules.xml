@@ -13,7 +13,7 @@
 <intervalCount>5</intervalCount>
 <intervalUnit>MINUTE</intervalUnit>
 </alertStrategy>
-<lastUpdated>1511177415138</lastUpdated>
+<lastUpdated>1511184678039</lastUpdated>
 <enabled>true</enabled>
 <disableEntityGrouping>false</disableEntityGrouping>
 <leavingEvents>false</leavingEvents>
@@ -24,6 +24,10 @@
 <intervalCount>5</intervalCount>
 <intervalUnit>MINUTE</intervalUnit>
 </actionStrategy>
+<timeFilter>
+<intervalCount>1</intervalCount>
+<intervalUnit>MINUTE</intervalUnit>
+</timeFilter>
 <discardPreviousValues>false</discardPreviousValues>
 <webNotification>
 <disabled>false</disabled>
@@ -33,7 +37,6 @@
 <intervalCount>5</intervalCount>
 <intervalUnit>MINUTE</intervalUnit>
 </repeat-interval>
-<name>Telegram</name>
 <use-in-threshold-only>false</use-in-threshold-only>
 <first-details>true</first-details>
 <repeat-details>false</repeat-details>
@@ -41,28 +44,15 @@
 <first-screenshot>true</first-screenshot>
 <repeat-screenshot>false</repeat-screenshot>
 <cancel-screenshot>false</cancel-screenshot>
-<webNotificationConfigName>Telegram</webNotificationConfigName>
-<firstWebConfigParameters>
-<key>disable_notification</key>
-<value/>
-</firstWebConfigParameters>
+<webNotificationConfigName>slack-devops</webNotificationConfigName>
 <firstWebConfigParameters>
 <key>text</key>
-<value>alert_open_datetime: ${alert_open_datetime}&#13;
-value: ${value}</value>
-</firstWebConfigParameters>
-<repeatWebConfigParameters>
-<key>disable_notification</key>
 <value/>
-</repeatWebConfigParameters>
+</firstWebConfigParameters>
 <repeatWebConfigParameters>
 <key>text</key>
 <value/>
 </repeatWebConfigParameters>
-<cancelWebConfigParameters>
-<key>disable_notification</key>
-<value/>
-</cancelWebConfigParameters>
 <cancelWebConfigParameters>
 <key>text</key>
 <value/>

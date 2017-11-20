@@ -1,0 +1,103 @@
+# Slack
+
+https://slack.com/
+
+## Prerequisites
+
+Install [WebDriver](README.md#instal-web-driver)
+
+## Create workspace and channel
+
+* Go to https://slack.com/create and follow the prompts to create new workspace
+* Create new channel:
+
+    ![](images/create_channel.png)
+    
+    * check (enable) **Private** to restrict access
+    * invite members to receive notifications from ATSD (you can do it later)
+      
+    ![](images/create_channel2.png)   
+    
+    * click **Create Channel**
+
+## Add bot integration 
+
+* Go to https://my.slack.com/services/new/bot 
+* Check Workspace 
+
+    ![](images/check_workspace.png)  
+
+* Fill username field > **Add bot integration**
+
+    ![](images/atsd_bot_slack.png)  
+
+* Review setup instructions
+* Copy API Token > **Save Integration**
+* Invite bot to the channel: 
+    * go back to https://my.slack.com/
+    * click **Invite others to this private channel**
+    
+    ![](images/add_atsd_bot.png) 
+    
+    * choose any option for the channel
+    
+    ![](images/channel_option.png) 
+    
+    * enter bot name to the search field
+    
+    ![](images/add_atsd_bot_to_slack.png) 
+    
+    * click **Invite**
+
+    ![](images/bot_joined.png) 
+ 
+## Configure Web Notifications
+
+* Log in ATSD web UI
+* Go to **Admin > Web Notifications > Slack**
+* Specify `Auth Token` and `Channels`
+* Fill the text field 
+
+    ![](images/slack_parameters.png) 
+
+* Click **Test**
+
+   ![](images/slack_message_test.png)
+   
+* Select **Test Portal**
+ 
+   ![](images/test_portal.png)   
+   
+* Click **Send Screenshot**
+
+   ![](images/slack_send_screen.png) 
+   
+In addition it's possible to specify other parameters:
+
+|**Parameter**|**Description**|
+|---|---|
+|Auth Token|Authentication token bearing required scopes.|
+|Channels|Comma-separated list of channels, private groups, or IM channels to send message to. Each entry can be an encoded ID, or a name.|
+|Text|Text of the message to be sent. This field is usually required, unless you're providing only alert details instead.|
+|Parse Mode|Change how messages are treated. See [Basic message formatting](https://api.slack.com/docs/message-formatting)|
+|Names as Links|Find and link channel names and usernames.|
+
+If tests are ok, check **Enable**, click **Save**   
+
+## Configure Rule
+
+* Download file [rules.xml](resources/rules.xml)
+* **Alerts > Rules > Import** 
+* **Choose File** > Check (enable) **Auto-enable New Rules > Import**
+* Open imported rule > **Web Notifications** > Select Slack from **Notification** drop-down
+* Fill text field with `Alert open: ${entity}, ${metric}.` > **Save**
+
+## Test
+
+* **Data > Data Entry** > run the following command
+
+```bash
+series e:server001 m:test_metric=8
+```
+
+![](images/slack_test1.png) 
