@@ -4,20 +4,20 @@ https://telegram.org/
 
 ## Prerequisites
 
-Install [WebDriver](README.md#instal-web-driver)
+Install [WebDriver](README.md#install-web-driver)
 
-## Create bot
+## Create a bot
 
 * Open a conversation with the [BotFather](https://telegram.me/botfather)
 
     ![](images/botfather.png)
 
-* Send command `/newbot` and follow the prompts to create bot user and obtain the token
+* Send the `/newbot` command and follow the prompts to create a bot user and obtain the token
 
-> Note the next step is required only if you want send notifications to group
+> Note: the next step is required only if you want to send notifications to groups
 
 * Enable groups for bot:
-  * send `/mybots`to the BotFather
+  * send the `/mybots` command to the BotFather
   * select recently created bot > **Bot Settings > Allow Groups? > Turn groups on** if required
 
 ## Create group or channel
@@ -28,15 +28,15 @@ Install [WebDriver](README.md#instal-web-driver)
 
    ![](images/new_group.png)
 
-* Enter group name > **Next**
-* Add created bot, for example `@atsd_bot`
+* Enter group name, click **Next**
+* Add the created bot, for example, `@atsd_bot`
 
    ![](images/atsd_bot.png)
 
-* Add other members to receive notifications from ATSD > **Create**
+* Add other members to receive notifications from ATSD, click **Create**
 * Get the chat id:
-  * log in [Telegram Web](https://web.telegram.org)
-  * click on group and look at URL: /#/im?p=g**306974066**
+  * log in to [Telegram Web client](https://web.telegram.org)
+  * open the group and find the id in the URL: /#/im?p=g**306974066**
   
    ![](images/id_group.png)
    
@@ -48,8 +48,8 @@ Install [WebDriver](README.md#instal-web-driver)
 
    ![](images/new_channel.png)
 
-* Enter channel name > **Create**
-* Check (enable) **Private channel > Save**
+* Enter channel name, click **Create**
+* Check (enable) **Private channel**, click **Save**
 
    ![](images/private_channel.png)
 
