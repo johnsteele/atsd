@@ -74,11 +74,11 @@ Install [WebDriver](README.md#instal-web-driver)
 
 * Get the chat id:
   * log in [Telegram Web](https://web.telegram.org)
-  * click on channel and look at URL: /#/im?p=c**1326547953**_11308280938695212446
+  * click on channel and look at URL: /#/im?p=c**1354757644**_16698643680908793939
   
    ![](images/channel_url.png)
   
-  * copy numbers before underscore and add prefix `-100`, so the chat id will be like `-1001326547953`
+  * copy numbers before underscore and add prefix `-100`, so the chat id will be like `-1001354757644`
 
 ## Configure Web Notifications
 
