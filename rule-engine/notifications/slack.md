@@ -4,12 +4,12 @@ https://slack.com/
 
 ## Prerequisites
 
-Install [WebDriver](README.md#instal-web-driver)
+Install a [Web Driver binary](README.md#install-web-driver)
 
 ## Create workspace and channel
 
-* Go to https://slack.com/create and follow the prompts to create new workspace
-* Create new channel:
+* Go to https://slack.com/create and follow the prompts to create a new workspace
+* Create a new channel:
 
     ![](images/create_channel.png)
     
@@ -27,12 +27,12 @@ Install [WebDriver](README.md#instal-web-driver)
 
     ![](images/check_workspace.png)  
 
-* Fill username field > **Add bot integration**
+* Fill in the username field , click **Add bot integration**
 
     ![](images/atsd_bot_slack.png)  
 
 * Review setup instructions
-* Copy API Token > **Save Integration**
+* Copy API Token, click **Save Integration**
 * Invite bot to the channel: 
     * go back to https://my.slack.com/
     * click **Invite others to this private channel**
@@ -53,7 +53,7 @@ Install [WebDriver](README.md#instal-web-driver)
  
 ## Configure Web Notifications
 
-* Log in ATSD web UI
+* Log in to ATSD web UI
 * Go to **Admin > Web Notifications > Slack**
 * Specify `Auth Token` and `Channels`
 * Fill the text field 
@@ -72,7 +72,7 @@ Install [WebDriver](README.md#instal-web-driver)
 
    ![](images/slack_send_screen.png) 
    
-In addition it's possible to specify other parameters:
+The following parameters are supported:
 
 |**Parameter**|**Description**|
 |---|---|
@@ -86,15 +86,16 @@ If tests are ok, check **Enable**, click **Save**
 
 ## Configure Rule
 
-* Download file [rules.xml](resources/rules.xml)
-* **Alerts > Rules > Import** 
-* **Choose File** > Check (enable) **Auto-enable New Rules > Import**
-* Open imported rule > **Web Notifications** > Select Slack from **Notification** drop-down
-* Fill text field with `Alert open: ${entity}, ${metric}.` > **Save**
+* Download the file [rules.xml](resources/rules.xml)
+* Open **Alerts > Rules > Import** 
+* Check (enable) **Auto-enable New Rules**, click on **Choose File**, select the downloaded XML file, click **Import**.
+* Open the imported rule, go to the **Web Notifications** tab, select Slack from **Notification** drop-down
+* Fill text field with `Alert open: ${entity}, ${metric}.`
+* Save the rule by clicking on the **Save** button
 
 ## Test
 
-* **Data > Data Entry** > run the following command
+* Go to **Data > Data Entry** and run the following command:
 
 ```bash
 series e:server001 m:test_metric=8
