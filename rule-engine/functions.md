@@ -89,7 +89,7 @@
 
 The database functions provide a way to retrieve values for a series which may be different from the series in the current window. The functions can be used to compare data between different series for correlation purposes.
 
-Refer to the database function [syntax and examples](functions-time.md).
+Refer to the database function [syntax and examples](functions-db.md).
 
 ## Formatting Functions
 
