@@ -94,6 +94,22 @@ elements that arrived over the last 5 minutes. As the current time
 increases, the start time is incremented accordingly, as if the window is
 sliding along a timeline.
 
+## Correlation
+
+Each rule evaluates data received for only one specified metric. In order to create conditions that check values for multiple metrics, use [database](functions-db.md) and [rule](functions-rules.md) functions.
+
+* Database functions:
+
+```javascript
+    percentile(95) > 80 && db_statistic('max', '1 hour', 'metric2') < 10*1024
+```
+
+* Rule functions:
+
+```javascript
+    percentile(95) > 80 && rule_open('inside_temperature_check')
+```
+
 ## Developing Rules
 
 Rules are typically developed by system engineers with specialized

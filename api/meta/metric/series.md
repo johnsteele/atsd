@@ -22,10 +22,11 @@ Each series is identified by metric name, entity name, and optional series tags.
 
 | **Parameter** |**Type**| **Description** |
 |:---|:---|:---|
-| entity | string| Include series for the specified entity name. |
-| tags.{tag=name} | string | Include series with the specified series tag values.<br>Example: `?tags.mount_point=/` or `?entity=nurswgvml007&tags.mount_point=/`|
-| minInsertDate |string|Include series with `lastInsertDate` equal or greater than `minInsertDate`.<br>`minInsertDate` can be specified in ISO format or using [endtime](../../../end-time-syntax.md) syntax.|
-| maxInsertDate |string|Include series with `lastInsertDate` less than `maxInsertDate`.<br>`maxInsertDate` can be specified in ISO format or using [endtime](../../../end-time-syntax.md) syntax.|
+| entity | string| Filter series collected by the specified entity name. |
+| tags.{tag=name} | string | Filter series that contain the specified series tag values.<br>Example: `?tags.mount_point=/` or `?entity=nurswgvml007&tags.mount_point=/`|
+| minInsertDate |string|Filter series with `lastInsertDate` equal or greater than `minInsertDate`.<br>`minInsertDate` can be specified in ISO format or using [endtime](../../../end-time-syntax.md) syntax.|
+| maxInsertDate |string|Filter series with `lastInsertDate` less than `maxInsertDate`.<br>`maxInsertDate` can be specified in ISO format or using [endtime](../../../end-time-syntax.md) syntax.|
+| addMeta | boolean | Include metric and entity metadata (fields and tags) under the `meta` object in the response. Default: `false`.|
 
 ## Response
 

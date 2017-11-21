@@ -86,7 +86,7 @@ tags.location LIKE 'nur*'
 | cache | boolean | If `true`, execute the query against the Last Insert table, which is the fastest way to retrieve the last value for a query. Default: `false`.<br>Values in the Last Insert table may be delayed up to 15 seconds , controlled with `last.insert.write.period.seconds` setting. Only 1 value is returned for each series.|
 | requestId | string | Optional identifier used to associate `query` object in request with one or multiple `series` objects in response. |
 | timeFormat |string| Time format for a data array. `iso` or `milliseconds`. Default: `iso`. |
-| addMeta | boolean | Include metric and entity metadata (field, tags) under the `meta` object in response. Default: false.|
+| addMeta | boolean | Include metric and entity metadata (fields and tags) under the `meta` object in the response. Default: `false`.|
 
 ### Transformation Fields
 
