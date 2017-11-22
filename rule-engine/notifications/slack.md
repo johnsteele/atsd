@@ -59,9 +59,9 @@ Install a [Web Driver binary](README.md#install-web-driver)
 * Log in to ATSD web UI
 * Go to **Admin > Web Notifications > Slack**
 * Specify `Auth Token` and `Channels`
-* Fill the text field 
+* Fill in the text field 
 
-    ![](images/slack_parameters.png) 
+    ![](images/slack_parameters_new.png)
 
 * Click **Test**
 
@@ -100,7 +100,7 @@ If tests are ok, check **Enable**, click **Save**
 
 * Go to **Data > Data Entry** and run the following command:
 
-```bash
+```ls
 series e:server001 m:test_metric=8
 ```
 

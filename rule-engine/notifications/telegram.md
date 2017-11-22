@@ -42,7 +42,7 @@ Install [WebDriver](README.md#install-web-driver)
    ![](images/new_channel.png)
 
 * Enter channel name, click **Create**
-* Check (enable) **Private channel**, click **Save**
+* Check (enable) type of channel, fill in the **Invite link** field if required, click **Save**
 
    ![](images/private_channel.png)
 
@@ -67,24 +67,57 @@ Install [WebDriver](README.md#install-web-driver)
 
 ## Get the chat id
 
-  * log in [Telegram Web](https://web.telegram.org)
+  * Log in [Telegram Web](https://web.telegram.org)
+  
+### 1-1 Chat
+
+  * Go to `https://t.me/BOT_NAME`, for example https://t.me/atsd_bot
+  * Click **Open in Web**
+  * Click **Start**
+  * Send some message to bot
+  * Go to https://api.telegram.org/botBOT_TOKEN/getUpdates
+  * Look at `Chat Object`
+  
+    ![](images/chat_object.png)
+    
+  * Copy id
   
 ### Group  
 
-  * click on group and look at URL: /#/im?p=g**306974066**
+  * Click on group and look at URL: /#/im?p=g**306974066**
   
-   ![](images/id_group.png)
+    ![](images/id_group.png)
    
-  * copy numbers and add prefix `-`, so the chat id will be like `-306974066`
+  * Copy numbers and add prefix `-`, so the chat id will be like `-306974066`
 
 ### Channel
 
-  * click on channel and look at URL: /#/im?p=c**1354757644**_16698643680908793939
-  
-   ![](images/channel_url.png)
-  
-  * copy numbers before underscore and add prefix `-100`, so the chat id will be like `-1001354757644`
+#### Private
 
+  * Click on channel and look at URL: /#/im?p=c**1354757644**_16698643680908793939
+  
+    ![](images/channel_url.png)
+  
+  * Copy numbers before underscore and add prefix `-100`, so the chat id will be like `-1001354757644`
+  
+#### Public
+
+##### Option 1
+
+  * Click on channel and look at URL: /#/im?p=**@atsd_notifications**
+    
+     ![](images/public_channel_url.png)    
+     
+  * Copy symbols after `=`, so the chat id will be like `@atsd_notifications`
+
+##### Option 2
+  
+  * Click on **Channel Settings > View channel info**
+  
+     ![](images/public_channel.png) 
+     
+  * Copy words after `https://t.me/` in invite link and add prefix `@`, so the chat id will be like `@atsd_notifications`
+  
 ## Configure Web Notifications
 
 * Log in ATSD web UI
@@ -106,7 +139,7 @@ Install [WebDriver](README.md#install-web-driver)
 
    ![](images/send_screen.png) 
    
-In addition it's possible to specify other parameters:
+The following parameters are supported:
 
 |**Field**|**Description**|
 |---|---|
@@ -121,17 +154,18 @@ If tests are ok, check **Enable**, click **Save**
 
 ## Configure Rule
 
-* Download file [rules.xml](resources/rules.xml)
-* **Alerts > Rules > Import** 
-* **Choose File** > Check (enable) **Auto-enable New Rules > Import**
-* Open imported rule > **Web Notifications** > Select Telegram from **Notification** drop-down
-* Fill text field with `Alert open: ${entity}, ${metric}.` > **Save**
+* Download the file [rules.xml](resources/rules.xml)
+* Open **Alerts > Rules > Import** 
+* Check (enable) **Auto-enable New Rules**, click on **Choose File**, select the downloaded XML file, click **Import**.
+* Open the imported rule, go to the **Web Notifications** tab, select Telegram from **Notification** drop-down
+* Fill text field with `Alert open: ${entity}, ${metric}.`
+* Save the rule by clicking on the **Save** button
 
 ## Test
 
-* **Data > Data Entry** > run the following command
+* Go to **Data > Data Entry** and run the following command:
 
-```bash
+```ls
 series e:server001 m:test_metric=8
 ```
 ![](images/test1.png) 
