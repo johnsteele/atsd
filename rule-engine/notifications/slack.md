@@ -84,6 +84,7 @@ The following parameters are supported:
 |Text|Text of the message to be sent. This field is usually required, unless you're providing only alert details instead.|
 |Parse Mode|Change how messages are treated. See [Basic message formatting](https://api.slack.com/docs/message-formatting)|
 |Names as Links|Find and link channel names and usernames.|
+|Bot Username|Set your bot's user name.|
 
 If tests are ok, check **Enable**, click **Save**   
 
